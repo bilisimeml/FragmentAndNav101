@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    // safeargs
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -33,6 +35,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    // build features
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -44,4 +51,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // fragment and nav
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.7")
+    implementation("androidx.fragment:fragment:1.8.9")
+
 }

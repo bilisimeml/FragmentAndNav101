@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.fragmentandnav101.R
 import com.example.fragmentandnav101.databinding.FragmentUserBinding
 
@@ -27,8 +28,30 @@ class UserFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // 1. yol: kullanıcı adı arguments ile alınır
+        // val userName = arguments?.getString("userName")
+
+        // 2. yol: kullanıcı adı safeargs ile alınır
+        val userName= UserFragmentArgs.fromBundle(requireArguments()).userName
+        binding.txtUserName.text = "Kullanıcı adı: $userName"
+
+        // butona tıklandığında logout fonksiyonu çalışacak
+        binding.btnLogOut.setOnClickListener {
+            logout(it)
+
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun logout(it: View) {
+        // kullanıcı ekranından çıkış yapılırsa login ekranına geçiş yap
+        val action = UserFragmentDirections.actionUserFragmentToLoginFragment()
+        findNavController().navigate(action)
     }
 }
